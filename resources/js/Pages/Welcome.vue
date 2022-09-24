@@ -3,7 +3,11 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GrayButton from '@/Components/Buttons/GrayButton.vue';
 defineProps({
-    products: {
+    categories: {
+        type: Array,
+        default: () => [],
+    },
+    featured: {
         type: Array,
         default: () => [],
     },
@@ -19,7 +23,7 @@ defineProps({
             <div class="flex flex-col justify-around items-center absolute inset-0">
                 <span class="text-white text-xl">Lorem ipsum dolor sit amet.</span>
                 <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-                    <GrayButton as="href" :href="route('shop.index', { category: category.slug })" class="text-md" v-for="(category, index) in categories" :key="index">
+                    <GrayButton like="href" :href="route('shop.index', { category: category.slug })" class="text-md" v-for="(category, index) in categories" :key="index">
                         {{ category.name }}
                     </GrayButton>
                 </div>
@@ -35,7 +39,7 @@ defineProps({
                         {{ feat.name }}
                     </span>
                 </div>
-                <img :src="'/storage/'+feat.main_image" :alt="feat.name" class="h-72 object-cover md:w-72 lg:w-96">
+                <img :src="'/storage/images/products/' + feat.image" :alt="feat.name" class="h-72 object-cover md:w-72 lg:w-96">
             </Link>
         </div>
         <div class="text-center text-white bg-black px-4 py-4">

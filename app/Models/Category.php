@@ -5,29 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
         'slug',
-        'details',
         'code',
-        'description',
-        'price',
-        'image',
-        'featured',
-        'active',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
-    public function categories()
+    public function getProductsCountAttribute()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->products()->count();
     }
+
+
 }

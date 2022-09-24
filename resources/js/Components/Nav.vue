@@ -28,7 +28,7 @@
                                 Login
                                 </Link>
                             </template>
-                            <Link href="#" class="hover:text-yellow-500 transition">
+                            <Link :href="route('shop.index')" class="hover:text-yellow-500 transition">
                             Shop
                             </Link>
                             <form method="POST" @submit.prevent="logout" v-if="$page.props.user">
@@ -36,7 +36,7 @@
                                     Log Out
                                 </button>
                             </form>
-                            <Link href="#" class="hover:text-red-700 transition">
+                            <Link :href="route('cart.index')" class="hover:text-red-700 transition">
                             <span class="bg-red-600 text-white text-xs rounded-md p-1 absolute"
                                 style="top: -10px; right: -8px;" v-if="$page.props.cartCount > 0">
                                 {{ $page . props . cartCount }}
@@ -89,12 +89,12 @@
                 </div>
             </template>
             <div class="pt-2 pb-3 space-y-1">
-                <JetResponsiveNavLink href="#">
+                <JetResponsiveNavLink :href="route('shop.index')">
                     Shop
                 </JetResponsiveNavLink>
             </div>
             <div class="pt-2 pb-3 space-y-1" v-if="$page.props.cartCount > 0">
-                <Link href="#"
+                <Link :href="route('cart.index')"
                     class="flex items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-red-700 hover:border-red-700 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition">
                 <icon name="cart" class="w-4 h-4 text-red-700 fill-current"></icon>
                 <span class="ml-2">
