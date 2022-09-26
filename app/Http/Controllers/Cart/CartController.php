@@ -3,42 +3,26 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
+    protected $cartService;
+
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     public function index()
     {
-        $cartItems =  Cart::instance('default')->content();
-        $cartTaxRate = config('cart.tax');
-        $tax = config('cart.tax') / 100;
-        $cartSubTotal = floatVal(Cart::instance('default')->subtotal());
-        $code = session()->get('coupon')['name'] ?? null;
-        $discount = session()->get('coupon')['discount'] ?? null;
-        $newSubtotal = ($cartSubTotal - $discount);
-        if ($newSubtotal < 0) {
-            $newSubtotal = 0;
-        }
-        $newTax = $newSubtotal * $tax;
-        $newTotal = $newSubtotal + (1 + $tax);
-        $laterItems = Cart::instance('laterCart')->content();
-        $laterCount = Cart::instance('laterCart')->count();
+        $cartValues = $this->cartService->setCartValues();
 
         return Inertia::render('Cart/Index',
-            [
-                'cartItems' => $cartItems,
-                'cartSubtotal' => ($cartSubTotal),
-                'cartTaxRate' => ($cartTaxRate),
-                'newTax' => $newTax,
-                'code' => $code,
-                'discount' => $discount,
-                'newSubtotal' => $newSubtotal,
-                'newTotal' => $newTotal,
-                'laterItems' => $laterItems,
-                'laterCount' => $laterCount,
-            ]
+           $cartValues->toArray()
         );
     }
 

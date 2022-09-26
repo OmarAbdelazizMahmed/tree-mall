@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Coupon;
-use App\Models\FixedValueCoupon;
-use App\Models\PercentOffCoupon;
+use App\Models\Coupons\Coupon;
+use App\Models\Coupons\FixedValueCoupon;
+use App\Models\Coupons\PercentOffCoupon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
