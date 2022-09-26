@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Foundation\Application;
@@ -33,6 +34,11 @@ Route::group(['prefix'=> 'cart', 'as' => 'cart.'], function () {
     Route::patch('/later/{product}', [LaterController::class, 'moveToCart'])->name('later.moveToCart');
     Route::post('/moveToCart/{product}', [LaterController::class, 'moveToCart'])->name('later.moveToCart');
     Route::post('/destroy/{product}', [LaterController::class, 'remove'])->name('later.remove');
+});
+
+Route::group(['prefix' => 'coupon', 'as' => 'coupon.'], function () {
+    Route::post('/apply', [CouponController::class, 'apply'])->name('apply');
+    Route::delete('/remove', [CouponController::class, 'remove'])->name('remove');
 });
 Route::middleware([
     'auth:sanctum',

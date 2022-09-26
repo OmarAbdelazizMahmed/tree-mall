@@ -16,7 +16,7 @@
                 <span class="px-4">Order Summary</span>
                 <div class="flex justify-between bg-white px-4 py-2 mt-4">
                     <span>Item(s) subtotal({{ $page.props.cartCount }})</span>
-                    <!-- <span>{{ $filters.formatCurrency(newSubtotal) }}</span> -->
+                    <span>{{ $filters.formatCurrency(newSubtotal) }}</span>
                 </div>
                 <div class="flex justify-between px-4 mt-4">
                     <span>Shipping</span>
@@ -25,13 +25,13 @@
                 <div class="flex justify-between px-4 mt-4" v-if="code">
                     <span>Discount Code ({{ code }})</span>
                     <form @submit.prevent="deleteCoupon">
-                        <!-- <span>-{{ $filters.formatCurrency(discount) }}</span> -->
+                        <span>-{{ $filters.formatCurrency(discount) }}</span>
                         <button type="submit" class="text-red-600 ml-2">X</button>
                     </form>
                 </div>
                 <div class="flex justify-between px-4 mt-4">
                     <span>Estimated Tax</span>
-                    <!-- <span>{{ $filters.formatCurrency(tax) }}</span> -->
+                    <span>{{ $filters.formatCurrency(tax) }}</span>
                 </div>
                 <div class="bg-white px-4 py-2 mt-4">
                     <div class="flex justify-between">
@@ -95,7 +95,7 @@
         },
         methods: {
             addCoupon() {
-                this.form.post(this.route('coupon.store'), {
+                this.form.post(this.route('coupon.apply'), {
                     preserveScroll: true,
                     onSuccess: () => {
                         this.form.reset()
@@ -107,7 +107,7 @@
                 })
             },
             deleteCoupon() {
-                this.form.delete(this.route('coupon.destroy'), {
+                this.form.delete(this.route('coupon.remove'), {
                     preserveScroll: true,
                     onSuccess: () => {
                         Toast.fire({

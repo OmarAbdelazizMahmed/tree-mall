@@ -12,20 +12,30 @@ class CartController extends Controller
     public function index()
     {
         $cartItems =  Cart::instance('default')->content();
-        $cartTexRate = config('cart.tax');
+        $cartTaxRate = config('cart.tax');
         $tax = config('cart.tax') / 100;
         $cartSubTotal = floatVal(Cart::instance('default')->subtotal());
-        $cartTax = $cartSubTotal * $tax;
-        $newTotal = Cart::instance('default')->total();
+        $code = session()->get('coupon')['name'] ?? null;
+        $discount = session()->get('coupon')['discount'] ?? null;
+        $newSubtotal = ($cartSubTotal - $discount);
+        if ($newSubtotal < 0) {
+            $newSubtotal = 0;
+        }
+        $newTax = $newSubtotal * $tax;
+        $newTotal = $newSubtotal + (1 + $tax);
         $laterItems = Cart::instance('laterCart')->content();
         $laterCount = Cart::instance('laterCart')->count();
+
         return Inertia::render('Cart/Index',
             [
                 'cartItems' => $cartItems,
                 'cartSubtotal' => ($cartSubTotal),
-                'cartTexRate' => floatVal($cartTexRate),
-                'cartTax' => floatVal($cartTax),
-                'newTotal' => floatVal($newTotal),
+                'cartTaxRate' => ($cartTaxRate),
+                'newTax' => $newTax,
+                'code' => $code,
+                'discount' => $discount,
+                'newSubtotal' => $newSubtotal,
+                'newTotal' => $newTotal,
                 'laterItems' => $laterItems,
                 'laterCount' => $laterCount,
             ]
