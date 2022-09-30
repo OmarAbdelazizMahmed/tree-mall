@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
@@ -39,6 +40,11 @@ Route::group(['prefix'=> 'cart', 'as' => 'cart.'], function () {
 Route::group(['prefix' => 'coupon', 'as' => 'coupon.'], function () {
     Route::post('/apply', [CouponController::class, 'apply'])->name('apply');
     Route::delete('/remove', [CouponController::class, 'remove'])->name('remove');
+});
+
+Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
+    Route::get('/', [CheckoutController::class, 'index'])->name('index');
+    Route::post('/', [CheckoutController::class, 'store'])->name('store');
 });
 Route::middleware([
     'auth:sanctum',
