@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckoutRequest;
 use App\Models\User;
 use App\Services\CartService;
 use App\Services\StripPaymentGateway;
@@ -46,34 +47,13 @@ class CheckoutController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\CheckoutRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CheckoutRequest $request)
     {
-        $cartItems = Cart::instance('default')->content()->map(function ($item) {
-           return
-                'Product Code: '. $item->options->code.', '.
-                'Product Name: '. $item->name.', '.
-                'Product Quantity: '. $item->qty;
-
-        })->values()->toJson();
         try {
-            // Validate the request...
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => ['required', 'email', 'unique:users'],
-                'address' => 'required',
-                'city' => 'required',
-                'province' => 'required',
-                'postalcode' => 'required',
-                'phone' => 'required',
-                'name_on_card' => 'required',
-                'state' => 'required',
-                'zip_code' => 'required',
-                'password' => ['sometimes',  'min:8'],
-            ]);
-            $user = new User();
+            $user = auth()->user() ??  new User();
             $confirmationNumber = Str::uuid();
 
             $this->paymentService->charge($user, $confirmationNumber, $request);
