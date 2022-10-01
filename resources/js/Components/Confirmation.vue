@@ -32,9 +32,9 @@
                     </div>
                     <div class="flex justify-between w-1/2">
                         <div class="flex-1 text-center">
-                            {{ item.pivot.quantity }}
+                            {{ item.quantity }}
                         </div>
-                        <span class="flex-1 text-right">{{ $filters.formatCurrency(item.price) }} ea.</span>
+                        <span class="flex-1 text-right">{{ $filters.formatCurrency(item.price) }} egp</span>
                     </div>
                 </div>
             </div>
@@ -79,3 +79,18 @@
         }
     })
 </script>
+<style>
+    @media print {
+        button#hamburger, button#print {
+            display: none;
+        }
+        #confirmation {
+            padding: 20px 30px;
+        }
+    }
+
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+</style>

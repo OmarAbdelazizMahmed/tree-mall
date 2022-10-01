@@ -75,11 +75,13 @@ class CheckoutController extends Controller
                     'billing_discount_code' => $order->billing_discount_code,
                     'billing_subtotal' => $order->billing_subtotal,
                     'billing_total' => $order->billing_total,
+                    'billing_tax' => $order->billing_tax,
                     'items' => $order->products->map(function ($product) {
                         return [
                             'name' => $product->name,
                             'price' => $product->price,
                             'quantity' => $product->pivot->quantity,
+                            'slug' => $product->slug,
                         ];
                     }),
                 ]

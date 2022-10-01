@@ -2,7 +2,7 @@
     <AppLayout title="Checkout">
         <div class="max-w-7xl mx-auto px-4 py-4 space-y-4 sm:px-6 md:flex md:space-y-0 md:space-x-4 lg:px-8">
             <template v-if="isConfirmed">
-                <!-- <Confirmation :order="order" /> -->
+                <Confirmation :order="order" />
             </template>
             <template v-else>
                 <div class="flex-1">
@@ -232,6 +232,7 @@
                     .then((resp) => {
                         this.order = resp.data.order
                         this.isConfirmed = true
+                        console.log(this.isConfirmed)
                     })
                     .catch((err) => {
                         if (err.response.status === 422) {
