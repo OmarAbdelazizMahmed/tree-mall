@@ -153,7 +153,7 @@
                 errors: [],
                 form: {
                     name:  '', //this.$page.props.user.name,
-                    email:  '', //this.$page.props.user.email,
+                    email:  't@t.com', //this.$page.props.user.email,
                     address: '', //this.$page.props.user.billing_details.address,
                     city: '', //this.$page.props.user.billing_details.city,
                     state: '', //this.$page.props.user.billing_details.state,

@@ -28,7 +28,7 @@ class CheckoutRequest extends FormRequest
             'name' => ['required', 'string','min:3', 'max:255'],
             'email' => $email,
             'name_on_card' => ['required', 'string', 'min:3', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['sometimes', 'string', 'min:8'],
             'address' => ['required', 'string', 'min:3', 'max:255'],
             'city' => ['required', 'string', 'min:2', 'max:255'],
             'state' => ['required', 'string', 'min:2', 'max:255'],

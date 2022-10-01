@@ -4,6 +4,7 @@ use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Foundation\Application;
@@ -45,6 +46,11 @@ Route::group(['prefix' => 'coupon', 'as' => 'coupon.'], function () {
 Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
     Route::get('/', [CheckoutController::class, 'index'])->name('index');
     Route::post('/', [CheckoutController::class, 'store'])->name('store');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
+
 });
 Route::middleware([
     'auth:sanctum',

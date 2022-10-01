@@ -2,7 +2,9 @@
 
 namespace App\Contracts;
 
+use App\Models\User;
+
 interface PaymentGatewayContract
 {
-    public function charge($user, $confirmationNumber, $request);
+    public function charge(User $user, $confirmationNumber, $request);
 }

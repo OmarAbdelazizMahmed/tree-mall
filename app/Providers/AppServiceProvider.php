@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
                     'Product Quantity: '. $item->qty;
 
             })->values()->toJson();
+
             return new StripPaymentGateway($cartItems);
         });
     }

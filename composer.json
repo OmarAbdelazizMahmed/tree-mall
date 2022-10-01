@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "bumbummen99/shoppingcart": "^4.2",
+        "dyrynda/laravel-model-uuid": "^6.6",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.3",
         "laravel/cashier": "^14.2",
