@@ -61,9 +61,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    protected $with = ['billingDetails'];
+
     public function billingDetails()
     {
-        return $this->hasMany(BillingDetail::class);
+        return $this->hasOne(BillingDetail::class);
     }
 
     public function orders()

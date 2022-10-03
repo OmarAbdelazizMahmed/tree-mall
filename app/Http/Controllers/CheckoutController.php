@@ -34,7 +34,13 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+        if(Cart::instance('default')->count() == 0){
+            return redirect()->route('shop.index');
+        }
         $cartValues = $this->cartService->setCartValues();
+        if (!auth()->check()) {
+            return Inertia::render('Checkout/Guest', $cartValues->toArray());
+        }
         return Inertia::render('Checkout/Index', $cartValues->toArray());
     }
 

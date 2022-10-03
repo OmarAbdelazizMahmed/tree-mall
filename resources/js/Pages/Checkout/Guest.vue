@@ -69,7 +69,7 @@
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
                                         E-mail
                                     </label>
-                                    <input type="email" class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 rounded py-2 px-4" id="email" required v-model="form.email" :class="{ 'opacity-50 cursor-not-allowed' : disabled }" disabled>
+                                    <input type="email" class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 rounded py-2 px-4" id="email" required v-model="form.email">
                                     <span class="flex justify-center text-md text-red-600 mt-2" v-if="errors.email">
                                         {{ errors.email[0] }}
                                     </span>
@@ -81,7 +81,7 @@
                                         Name on Card
                                     </label>
                                     <input type="text" class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-400 rounded py-2 px-4" id="name_on_card" required v-model="form.name_on_card">
-                                    <span class="flex ju    stify-center text-md text-red-600 mt-2" v-if="errors.name_on_card">
+                                    <span class="flex justify-center text-md text-red-600 mt-2" v-if="errors.name_on_card">
                                         {{ errors.name_on_card[0] }}
                                     </span>
                                 </div>
@@ -121,11 +121,11 @@
 <script>
     import { defineComponent } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
-    import { loadStripe } from '@stripe/stripe-js';
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    import Confirmation from '@/Components/Confirmation.vue';
-    import OrderTotals from '@/Components/OrderTotals.vue';
-    import YellowButton from '@/Components/Buttons/YellowButton.vue';
+    import { loadStripe } from '@stripe/stripe-js'
+    import AppLayout from '@/Layouts/AppLayout.vue'
+    import Confirmation from '@/Components/Confirmation.vue'
+    import OrderTotals from '@/Components/OrderTotals.vue'
+    import YellowButton from '@/Components/Buttons/YellowButton.vue'
     import states from '@/states'
     export default defineComponent({
         props: [
@@ -152,12 +152,12 @@
                 elements: {},
                 errors: [],
                 form: {
-                    name:  this.$page.props.user.name,
-                    email:  this.$page.props.user.email,
-                    address: this.$page.props.user.billing_details.address,
-                    city: this.$page.props.user.billing_details.city,
-                    state: this.$page.props.user.billing_details.state,
-                    zip_code:  this.$page.props.user.billing_details.zip_code,
+                    name: '',
+                    email: '',
+                    address: '',
+                    city: '',
+                    state: '',
+                    zip_code: '',
                     name_on_card: '',
                 },
                 isConfirmed: false,
@@ -232,7 +232,6 @@
                     .then((resp) => {
                         this.order = resp.data.order
                         this.isConfirmed = true
-                        console.log(this.isConfirmed)
                     })
                     .catch((err) => {
                         if (err.response.status === 422) {
