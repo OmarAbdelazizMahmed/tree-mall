@@ -41,7 +41,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'email' => $input['email'],
             ])->save();
 
-            $user->billingDetails()->forceFill([
+            $user->billingDetails->forceFill([
                 'address' => $input['address'],
                 'city' => $input['city'],
                 'state' => $input['state'],
@@ -65,7 +65,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'email_verified_at' => null,
         ])->save();
 
-        $user->billingDetails()->forceFill([
+        $user->billingDetails->forceFill([
             'address' => $input['address'],
             'city' => $input['city'],
             'state' => $input['state'],

@@ -22,5 +22,4 @@ class BillingDetail extends Model
         return $this->belongsTo(User::class);
     }
 
-
 }

@@ -10,6 +10,8 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Order/Index');
+        return Inertia::render('Orders/Index', [
+            'orders' => auth()->user()->orders()->with('products')->latest()->paginate(2)
+        ]);
     }
 }

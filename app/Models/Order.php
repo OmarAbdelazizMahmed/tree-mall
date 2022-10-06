@@ -32,6 +32,11 @@ class Order extends Model
         'status',
     ];
 
+    protected $casts = [
+        'shipped' => 'boolean',
+        'created_at' => 'datetime: F j, Y',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
