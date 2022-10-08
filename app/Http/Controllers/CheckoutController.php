@@ -7,6 +7,7 @@ use App\Http\Requests\CheckoutRequest;
 use App\Mail\OrderReceived;
 use App\Models\User;
 use App\Services\CartService;
+use App\Services\InvoiceService;
 use App\Services\OrderService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -20,14 +21,15 @@ class CheckoutController extends Controller
     protected $cartService;
     protected $orderService;
     protected $paymentGateway;
+    protected $invoiceService;
 
-    public function __construct(CartService $cartService, PaymentGatewayContract $paymentGateway, OrderService $orderService)
+    public function __construct(CartService $cartService, PaymentGatewayContract $paymentGateway, OrderService $orderService, InvoiceService $invoiceService)
     {
         $this->cartService = $cartService;
         $this->paymentGateway = $paymentGateway;
         $this->orderService = $orderService;
+        $this->invoiceService = $invoiceService;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -78,7 +80,7 @@ class CheckoutController extends Controller
 
             $userInvoice = auth()->user() ?? $order->billing_email;
 
-            Mail::to($userInvoice)->send(new OrderReceived($order));
+            Mail::to($userInvoice)->send(new OrderReceived($order->load('products'), $this->invoiceService->createInvoice($order)));
 
             return response([
                 'success' => true,

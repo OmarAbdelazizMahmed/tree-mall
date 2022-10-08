@@ -11,14 +11,17 @@ class OrderReceived extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $order;
+    public $invoice;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($order, $invoice)
     {
-        //
+        $this->order = $order;
+        $this->invoice = $invoice;
     }
 
     /**
@@ -28,6 +31,10 @@ class OrderReceived extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.orders.received');
+        return $this->markdown('emails.orders.received', [
+            'order' => $this->order,
+        ])->attachData($this->invoice->stream()->getContent(), 'invoice.pdf', [
+            'mime' => 'application/pdf',
+        ]);
     }
 }

@@ -1,10 +1,10 @@
 @component('mail::message')
-# Introduction
+# You've just purchased our swag, {{ $order['billing_name'] }}!
 
-The body of your message.
+## We've attached the invoice to this email.<br>
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => route('dashboard')])
+View Dashboard
 @endcomponent
 
 Thanks,<br>
