@@ -4,6 +4,7 @@ use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
@@ -50,8 +51,14 @@ Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/my-orders/invoice/{order:confirmation_number}', [OrderController::class, 'show'])->name('orders.show');
     Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
         Route::get('/', [CheckoutController::class, 'index'])->name('index');
+    });
+
+    Route::group(['prefix' => 'invoice', 'as' => 'invoice.'], function () {
+        Route::get('/{order:confirmation_number}', [InvoiceController::class, 'show'])->name('show');
+        Route::post('/{order:confirmation_number}', [InvoiceController::class, 'store'])->name('store');
     });
 });
 Route::middleware([

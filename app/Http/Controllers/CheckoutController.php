@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Contracts\PaymentGatewayContract;
 use App\Http\Requests\CheckoutRequest;
+use App\Mail\OrderReceived;
 use App\Models\User;
 use App\Services\CartService;
 use App\Services\OrderService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Stripe\Exception\CardException;
 use Illuminate\Support\Str;
@@ -73,6 +75,11 @@ class CheckoutController extends Controller
                     'quantity' => $item->qty,
                 ]);
             }
+
+            $userInvoice = auth()->user() ?? $order->billing_email;
+
+            Mail::to($userInvoice)->send(new OrderReceived($order));
+
             return response([
                 'success' => true,
                 'order' => [

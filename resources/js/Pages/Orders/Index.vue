@@ -20,7 +20,7 @@
                             <div class="flex flex-col text-right">
                                 <span>Order # {{ order.confirmation_number }}</span>
                                 <div>
-                                    <YellowButton as="href" href="route('orders.show', order.confirmation_number)" class="py-1">
+                                    <YellowButton like="href" :href="route('orders.show', order.confirmation_number)" class="py-1">
                                         <span>View Invoice</span>
                                     </YellowButton>
                                 </div>
