@@ -4,13 +4,12 @@ use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\LaterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +22,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/', WelcomeController::class)->name('welcome');
 
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop/{product}', [ShopController::class, 'show'])->name('shop.show');
+Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
+    Route::get('/', [ShopController::class, 'index'])->name('index');
+    Route::get('/{product:slug}', [ShopController::class, 'show'])->name('show');
+});
 
 Route::group(['prefix'=> 'cart', 'as' => 'cart.'], function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
@@ -50,6 +51,8 @@ Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/my-orders/invoice/{order:confirmation_number}', [OrderController::class, 'show'])->name('orders.show');
     Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
@@ -60,13 +63,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/{order:confirmation_number}', [InvoiceController::class, 'show'])->name('show');
         Route::post('/{order:confirmation_number}', [InvoiceController::class, 'store'])->name('store');
     });
+
 });
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
+

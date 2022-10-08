@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\PaymentGatewayContract;
 use App\Http\Requests\CheckoutRequest;
 use App\Mail\OrderReceived;
+use App\Models\Product;
 use App\Models\User;
 use App\Services\CartService;
 use App\Services\InvoiceService;
@@ -68,14 +69,30 @@ class CheckoutController extends Controller
     {
         try {
             $user = auth()->user() ??  new User();
-            $confirmationNumber = Str::uuid();
+            $confirmationNumber = $this->generateConfirmationNumber();
 
             $order = $user->orders()->create($this->orderService->all($request, $confirmationNumber));
 
-            foreach (Cart::instance('default')->content() as $item) {
-                $order->products()->attach($item->model->id, [
-                    'quantity' => $item->qty,
-                ]);
+            foreach(Cart::instance('default')->content() as $item) {
+                $product = Product::find($item->model->id);
+                if ($product->quantity < $item->qty) {
+                    if ($product->quantity === 0) {
+                        return response([
+                            'errors' => 'Sorry! '.$item->name. ' is no longer available. Please remove the item from your cart.'
+                        ], 400);
+                    }
+                    return response([
+                        'errors' => 'Sorry! There are only '.$product->quantity. 'of '.$item->name. ' left. Please adjust the quantities in your cart!',
+                    ], 400);
+                }
+                $order->products()->attach($product, ['quantity' => $item->qty]);
+                $product->decrement('quantity', $item->qty);
+            }
+
+            Cart::instance('default')->destroy();
+
+            if (session()->has('coupon')) {
+                session()->forget('coupon');
             }
 
             $userInvoice = auth()->user() ?? $order->billing_email;

@@ -18,7 +18,7 @@ defineProps({
 <template>
     <AppLayout title="Welcome">
          <div class="relative">
-            <img :src="'/storage/images/site_images/hand_carft.jpeg'"
+            <img :src="'/storage/images/site_images/hand_craft.jpg'"
             alt="Coder's Store" class="w-full h-96 opacity-75 object-cover">
             <div class="flex flex-col justify-around items-center absolute inset-0">
                 <span class="text-white text-xl">Lorem ipsum dolor sit amet.</span>
