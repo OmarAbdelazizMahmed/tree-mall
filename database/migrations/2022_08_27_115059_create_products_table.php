@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('code');
             $table->text('description');
             $table->decimal('price', 10, 2);
-            $table->string('image')->default('default/product.png');
+            $table->string('main_image')->default('default/product.png');
+            $table->text('alt_images')->nullable();
             $table->boolean('featured')->default(false);
             $table->boolean('active')->default(true);
             $table->integer('quantity')->default(0);

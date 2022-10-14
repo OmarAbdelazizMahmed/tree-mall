@@ -9,7 +9,9 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
-
+<!-- Styles -->
+<link rel="stylesheet" href="{{ mix('css/app.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.4.5/themes/satellite-min.css" integrity="sha256-TehzF/2QvNKhGQrrNpoOb2Ck4iGZ1J/DI4pkd2oUsBc=" crossorigin="anonymous">
         <!-- Scripts -->
         @routes
         <!-- sweetalert2 -->

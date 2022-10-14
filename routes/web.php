@@ -7,6 +7,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Search\AlgoliaSearchController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,9 @@ Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
     Route::get('/guest', [CheckoutController::class, 'index'])->name('guest.index');
     Route::post('/', [CheckoutController::class, 'store'])->name('store');
 });
+
+// search
+Route::get('/search-algolia', [AlgoliaSearchController::class, 'search'])->name('search-algolia');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');

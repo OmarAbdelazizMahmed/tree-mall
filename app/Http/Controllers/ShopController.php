@@ -27,17 +27,17 @@ class ShopController extends Controller
            if (request()->sort) {
                $products = Product::with('categories')->whereHas('categories', function ($query) {
                    $query->where('slug', request()->category);
-               })->orderBy('price', self::PRICE_SORT[request()->sort])->get(['name', 'slug', 'price', 'image']);
+               })->orderBy('price', self::PRICE_SORT[request()->sort])->get(['name', 'slug', 'price', 'main_image']);
            } else {
                $products = Product::with('categories')->whereHas('categories', function ($query) {
                    $query->where('slug', request()->category);
-               })->get(['name', 'slug', 'price', 'image']);
+               })->get(['name', 'slug', 'price', 'main_image']);
            }
            $categoryName = optional($categories->where('slug', request()->category)->first())->name;
            $categorySlug = request()->category;
 
         } else {
-            $products = Product::inRandomOrder()->get(['name', 'slug', 'price', 'image']);
+            $products = Product::inRandomOrder()->get(['name', 'slug', 'price', 'main_image']);
             $categorySlug = '';
         }
 
@@ -78,8 +78,14 @@ class ShopController extends Controller
      */
     public function show(Product $product)
     {
+        $categories = $product->categories()->get(['name', 'slug']);
+        // get 4 similar products
+        $similarProducts = Product::whereHas('categories', function ($query) use ($categories) {
+            $query->whereIn('slug', $categories->pluck('slug'));
+        })->where('slug', '!=', $product->slug)->inRandomOrder()->take(4)->get(['name', 'slug', 'price', 'main_image', 'alt_images']);
         return Inertia::render('Shop/show', [
             'product' => $product,
+            'similarProducts' => $similarProducts,
         ]);
     }
 

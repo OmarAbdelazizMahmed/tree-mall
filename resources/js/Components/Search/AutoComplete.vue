@@ -1,13 +1,13 @@
 <template>
-    <ais-instant-search
+    <AisInstantSearch
         index-name="products"
         :search-client="searchClient"
     >
-        <ais-configure
+        <AisConfigure
             :attributesToSnippet="['name', 'details', 'description', 'categories']"
             :hits-per-page.camel="5"
         >
-            <ais-autocomplete class="relative">
+            <AisAutocomplete class="relative">
                 <template v-slot="{ currentRefinement, indices, refine }">
                     <span class="relative">
                         <input
@@ -30,7 +30,7 @@
                                         <h2 class="uppercase text-yellow-500 py-1 px-2">
                                             {{ item.indexName }}
                                         </h2>
-                                        <ais-stats class="text-gray-100" />
+                                        <AisStats class="text-gray-100" />
                                     </div>
                                     <Link :href="route('shop.show', hit.slug)" class="flex items-center space-x-4 px-2 py-2 transition hover:bg-gray-700 focus:outline-none focus:bg-gray-700 " v-for="(hit, index) in item.hits" :key="index">
                                         <div class="flex w-24 h-24">
@@ -41,9 +41,9 @@
                                             />
                                         </div>
                                         <div>
-                                            <ais-highlight attribute="name" :hit="hit" class="block text-blue-300 font-medium"></ais-highlight>
-                                            <ais-snippet attribute="details" :hit="hit" class="block text-gray-100"></ais-snippet>
-                                            <ais-snippet attribute="description" :hit="hit" class="block text-gray-100"></ais-snippet>
+                                            <AisHighlight attribute="name" :hit="hit" class="block text-blue-300 font-medium"></AisHighlight>
+                                            <AisSnippet attribute="details" :hit="hit" class="block text-gray-100"></AisSnippet>
+                                            <AisSnippet attribute="description" :hit="hit" class="block text-gray-100"></AisSnippet>
                                         </div>
                                     </Link>
                                 </div>
@@ -52,9 +52,9 @@
                         </div>
                     </div>
                 </template>
-            </ais-autocomplete>
-        </ais-configure>
-    </ais-instant-search>
+            </AisAutocomplete>
+        </AisConfigure>
+    </AisInstantSearch>
 </template>
 
 <script>
@@ -66,16 +66,18 @@
             Link,
         },
         data() {
+            console.log('algolia', import.meta.env.VITE_ALGOLIA_APP_ID, import.meta.env.VITE_ALGOLIA_SEARCH_KEY)
+
             return {
                 searchClient: algoliasearch(
-                    process.env.MIX_ALGOLIA_APP_ID,
-                    process.env.MIX_ALGOLIA_SEARCH,
+                    import.meta.env.VITE_ALGOLIA_APP_ID,
+                    import.meta.env.VITE_ALGOLIA_SECRET
                 )
             }
         },
         methods: {
             search() {
-                this.$inertia.get(this.route('searchAlgolia.index'))
+                this.$inertia.get(this.route('search-algolia'))
             }
         }
     })

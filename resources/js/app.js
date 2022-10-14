@@ -7,6 +7,8 @@ import { InertiaProgress } from '@inertiajs/progress';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import Icons from '@/Components/Icons.vue';
+import InstantSearch from 'vue-instantsearch/vue3/es';
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -41,6 +43,7 @@ createInertiaApp({
             };
             vueApp.use(plugin)
                 .use(ZiggyVue, Ziggy)
+                .use(InstantSearch)
                 .component('icon', Icons)
                 .mount(el);
     },

@@ -5,9 +5,9 @@
                 <icon name="angle-right" class="w-4 h-4 fill-current"></icon>
                 <span>Shop {{ categoryName }}</span>
             </template>
-            <!-- <template #search>
+            <template #search>
                 <AutoComplete></AutoComplete>
-            </template> -->
+            </template>
         </SecondaryHeader>
         <div class="flex">
             <div class="border-r w-1/5">
@@ -34,7 +34,7 @@
                         <NoItemsFound></NoItemsFound>
                     </template>
                     <Link :href="route('shop.show', product.slug)" class="flex flex-col w-full p-4 rounded sm:w-1/2 md:w-1/3" v-for="(product, index) in products" :key="index" v-else>
-                        <img :src="'/storage/images/products/'+product.image" :alt="product.name" class="h-72 object-cover md:w-72 lg:w-96">
+                        <img :src="'/storage/images/'+product.main_image" :alt="product.name" class="h-72 object-cover md:w-72 lg:w-96">
                         <div class="flex justify-around bg-gray-700 py-2">
                             <span class="text-yellow-500">{{ $filters.formatCurrency(product.price) }}</span>
                             <span class="text-white">{{ product.name }}</span>
@@ -50,7 +50,7 @@
     import { defineComponent } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
     import AppLayout from '@/Layouts/AppLayout.vue';
-    // import AutoComplete from '@/Components/Search/AutoComplete'
+    import AutoComplete from '@/Components/Search/AutoComplete.vue';
     import NoItemsFound from '@/Components/NoItemsFound.vue';
     import SecondaryHeader from '@/Components/SecondaryHeader.vue';
     defineProps({

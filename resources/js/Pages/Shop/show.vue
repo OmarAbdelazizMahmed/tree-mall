@@ -8,21 +8,21 @@
                 <span>{{ product.name }}</span>
             </template>
             <template #search>
-                <!-- <auto-complete></auto-complete> -->
+                <AutoComplete></AutoComplete>
             </template>
         </SecondaryHeader>
         <div class="max-w-7xl mx-auto px-4 py-4 sm:flex sm:space-x-4 sm:px-6 lg:px-8">
             <div class="flex flex-col flex-1 sm:border-r">
                 <div class="border-2 overflow-hidden cursor-zoom-in h-full">
                     <div id="img-container" class="w-full h-full">
-                        <img id="current-img" :src="'/storage/images/products/'+currentImg" :alt="product.name" class="w-full h-full object-cover origin-center">
+                        <img id="current-img" :src="'/storage/images/'+currentImg" :alt="product.name" class="w-full h-full object-cover origin-center">
                     </div>
                 </div>
                 <div class="mt-6" v-if="product.alt_images">
                     <Carousel :settings="settings" :breakpoints="breakpoints">
                         <Slide v-for="(image, index) in slides" :key="index" class="cursor-pointer border-2 border-black hover:border-blue-600" :class="{ selected: index === isActive, 'border-red-600': index === isActive }" @click.prevent="changeCurrentImage(image, index)">
                             <div class="carousel__item flex w-full h-full">
-                                <img :src="'/storage/'+image" class="object-cover" :class="{ 'opacity-50': index !== isActive  }">
+                                <img :src="'/storage/images/'+image" class="object-cover" :class="{ 'opacity-50': index !== isActive  }">
                             </div>
                         </Slide>
                         <template #addons>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="flex space-x-4">
                     <Link :href="route('shop.show', item.slug)" class="flex border border-black w-1/4 h-24" v-for="(item, index) in similarProducts"  :key="index">
-                        <img :src="'/storage/'+item.main_image" :alt="item.name" class="w-full object-cover">
+                        <img :src="'/storage/images/'+item.main_image" :alt="item.name" class="w-full object-cover">
                     </Link>
                 </div>
             </div>
@@ -164,7 +164,7 @@
     import { Link } from '@inertiajs/inertia-vue3'
     import { Carousel, Slide, Navigation } from 'vue3-carousel';
     import AppLayout from '@/Layouts/AppLayout.vue'
-    // import AutoComplete from '@/Components/Search/AutoComplete.vue'
+    import AutoComplete from '@/Components/Search/AutoComplete.vue'
     import GrayButton from '@/Components/Buttons/GrayButton.vue'
     import SecondaryHeader from '@/Components/SecondaryHeader.vue'
     export default defineComponent({
@@ -172,7 +172,7 @@
         components: {
             Link,
             AppLayout,
-            // AutoComplete,
+            AutoComplete,
             GrayButton,
             SecondaryHeader,
             Carousel,
@@ -181,7 +181,7 @@
         },
         data() {
             return {
-                currentImg: this.product.image,
+                currentImg: this.product.main_image,
                 isActive: 0,
                 selected: false,
                 openDescription: false,
@@ -199,7 +199,6 @@
                     alt_images: this.product.alt_images,
                     slug: this.product.slug,
                     quantity: 1,
-                    image: this.product.image,
                     total_quantity: this.product.quantity,
                 }),
                 slides: this.product.alt_images,
@@ -245,7 +244,7 @@
                     this.isActive = index
                     this.selected = false
                 } else {
-                    this.currentImg = this.product.image
+                    this.currentImg = this.product.main_image
                     if (this.isActive = index) {
                         this.selected = false
                     } else {

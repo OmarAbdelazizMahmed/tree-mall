@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "algolia/algoliasearch-client-php": "^3.3",
+        "algolia/scout-extended": "^2.0",
         "bumbummen99/shoppingcart": "^4.2",
         "dyrynda/laravel-model-uuid": "^6.6",
         "guzzlehttp/guzzle": "^7.2",
@@ -14,6 +16,7 @@
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.11",
         "laravel/sanctum": "^3.0",
+        "laravel/scout": "^9.4",
         "laravel/tinker": "^2.7",
         "laraveldaily/laravel-invoices": "^3.0",
         "tightenco/ziggy": "^1.0"

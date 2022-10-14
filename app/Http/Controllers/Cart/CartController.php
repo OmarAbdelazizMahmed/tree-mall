@@ -33,7 +33,7 @@ class CartController extends Controller
             'name' => 'required|string',
             'quantity' => 'required|integer',
             'price' => 'required|numeric',
-            'image' => 'required|string',
+            'main_image' => 'required|string',
             'slug' => 'required|string',
             'details' => 'required|string',
             'code' => 'required|string',
@@ -43,7 +43,7 @@ class CartController extends Controller
         $cart = Cart::instance('default')->add($request->id, $request->name, $request->quantity, $request->price, 0,
         [
             'totalQty' => $request->total_quantity,'code' => $request->code,
-            'image' => $request->image, 'slug' => $request->slug,
+            'main_image' => $request->main_image, 'slug' => $request->slug,
             'details' => $request->details,
         ])->associate('App\Models\Product');
 
