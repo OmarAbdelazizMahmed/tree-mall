@@ -10,6 +10,7 @@
         "algolia/scout-extended": "^2.0",
         "bumbummen99/shoppingcart": "^4.2",
         "dyrynda/laravel-model-uuid": "^6.6",
+        "filament/filament": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.3",
         "laravel/cashier": "^14.2",
@@ -19,6 +20,7 @@
         "laravel/scout": "^9.4",
         "laravel/tinker": "^2.7",
         "laraveldaily/laravel-invoices": "^3.0",
+        "livewire/livewire": "^2.10",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
@@ -48,7 +50,8 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan filament:upgrade"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

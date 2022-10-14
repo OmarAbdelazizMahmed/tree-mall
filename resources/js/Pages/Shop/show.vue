@@ -15,14 +15,14 @@
             <div class="flex flex-col flex-1 sm:border-r">
                 <div class="border-2 overflow-hidden cursor-zoom-in h-full">
                     <div id="img-container" class="w-full h-full">
-                        <img id="current-img" :src="'/storage/images/'+currentImg" :alt="product.name" class="w-full h-full object-cover origin-center">
+                        <img id="current-img" :src="'/storage/'+currentImg" :alt="product.name" class="w-full h-full object-cover origin-center">
                     </div>
                 </div>
                 <div class="mt-6" v-if="product.alt_images">
                     <Carousel :settings="settings" :breakpoints="breakpoints">
                         <Slide v-for="(image, index) in slides" :key="index" class="cursor-pointer border-2 border-black hover:border-blue-600" :class="{ selected: index === isActive, 'border-red-600': index === isActive }" @click.prevent="changeCurrentImage(image, index)">
                             <div class="carousel__item flex w-full h-full">
-                                <img :src="'/storage/images/'+image" class="object-cover" :class="{ 'opacity-50': index !== isActive  }">
+                                <img :src="'/storage/'+image" class="object-cover" :class="{ 'opacity-50': index !== isActive  }">
                             </div>
                         </Slide>
                         <template #addons>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="flex space-x-4">
                     <Link :href="route('shop.show', item.slug)" class="flex border border-black w-1/4 h-24" v-for="(item, index) in similarProducts"  :key="index">
-                        <img :src="'/storage/images/'+item.main_image" :alt="item.name" class="w-full object-cover">
+                        <img :src="'/storage/'+item.main_image" :alt="item.name" class="w-full object-cover">
                     </Link>
                 </div>
             </div>

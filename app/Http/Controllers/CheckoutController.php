@@ -114,6 +114,7 @@ class CheckoutController extends Controller
                             'price' => $product->price,
                             'quantity' => $product->pivot->quantity,
                             'slug' => $product->slug,
+                            'main_image' => $product->main_image,
                         ];
                     }),
                 ]

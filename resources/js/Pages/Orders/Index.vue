@@ -53,7 +53,7 @@
                             v-for="(link, index) in orders.links"
                             :key="index"
                         >
-                            <Link :href="link.url === null ? '#' : link.url" v-html="link.label"></Link>
+                            <Link :href="link.url === null ? '#' : link.url" v-html="link.label === 'pagination.previous' ? '&laquo;' : link.label === 'pagination.next' ? '&raquo;' : link.label"></Link>
                         </li>
                     </ul>
                 </nav>

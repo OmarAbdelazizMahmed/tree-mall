@@ -19,7 +19,7 @@ class CartService
             $newSubtotal = 0;
         }
         $newTax = $newSubtotal * $tax;
-        $newTotal = $newSubtotal + (1 + $tax);
+        $newTotal = $newSubtotal * (1 + $tax);
         $laterItems = Cart::instance('laterCart')->content();
         $laterCount = Cart::instance('laterCart')->count();
 

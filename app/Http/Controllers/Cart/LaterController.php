@@ -40,7 +40,7 @@ class LaterController extends Controller
         Cart::instance('laterCart')->add($item->id, $item->name, $item->qty, $item->price, 0,
         [
             'totalQty' => $item->options->totalQty,'code' => $item->options->code,
-            'image' => $item->options->image, 'slug' => $item->options->slug,
+            'main_image' => $item->options->main_image, 'slug' => $item->options->slug,
             'details' => $item->options->details,
         ])->associate('App\Models\Product');
 
@@ -56,7 +56,7 @@ class LaterController extends Controller
         Cart::instance('default')->add($item->id, $item->name, $item->qty, $item->price, 0,
         [
             'totalQty' => $item->options->totalQty,'code' => $item->options->code,
-            'image' => $item->options->image, 'slug' => $item->options->slug,
+            'main_image' => $item->options->main_image, 'slug' => $item->options->slug,
             'details' => $item->options->details,
         ])->associate('App\Models\Product');
 
