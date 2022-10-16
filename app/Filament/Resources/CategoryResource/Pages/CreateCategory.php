@@ -12,6 +12,6 @@ class CreateCategory extends CreateRecord
 
     protected function getRedirectUrl(): string
     {
-        return $this->getResources()->getRoute('index');
+        return $this->getResource()::getUrl('index');
     }
 }
