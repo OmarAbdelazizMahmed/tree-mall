@@ -15,10 +15,14 @@ class WelcomeController extends Controller
         $categories = Category::select('name', 'slug')->take(4)->get();
         $sliders = Category::select('name', 'slug', 'image')->take(4)->get();
         $featured = Product::where('featured', true)->take(4)->select('name', 'slug', 'main_image')->get();
+        // top selling products are 4 random products
+        $topSelling = Product::inRandomOrder()->take(4)->select('name', 'slug', 'main_image')->get();
         return Inertia::render('Welcome', [
             'featured' => $featured,
             'categories' => $categories,
-            'sliders' => $sliders
+            'sliders' => $sliders,
+            'topSelling' => $topSelling,
+
         ]);
     }
 }
