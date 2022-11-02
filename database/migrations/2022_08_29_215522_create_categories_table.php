@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('code');
+            // banner image
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

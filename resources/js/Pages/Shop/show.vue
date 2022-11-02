@@ -7,9 +7,6 @@
                 <icon name="angle-right" class="w-4 h-4 fill-current"></icon>
                 <span>{{ product.name }}</span>
             </template>
-            <template #search>
-                <AutoComplete></AutoComplete>
-            </template>
         </SecondaryHeader>
         <div class="max-w-7xl mx-auto px-4 py-4 sm:flex sm:space-x-4 sm:px-6 lg:px-8">
             <div class="flex flex-col flex-1 sm:border-r">
@@ -91,9 +88,9 @@
                         </template>
                     </div>
                     <div class="text-center mt-4" v-if="product.quantity > 0">
-                        <GrayButton like="submit" class="text-sm">
+                        <MainButton like="submit" class="text-sm">
                             <span>Add to Cart</span>
-                        </GrayButton>
+                        </MainButton>
                     </div>
                 </form>
                 <div class="flex flex-col divide-y">
@@ -165,7 +162,7 @@
     import { Carousel, Slide, Navigation } from 'vue3-carousel';
     import AppLayout from '@/Layouts/AppLayout.vue'
     import AutoComplete from '@/Components/Search/AutoComplete.vue'
-    import GrayButton from '@/Components/Buttons/GrayButton.vue'
+    import MainButton from '@/Components/Buttons/MainButton.vue'
     import SecondaryHeader from '@/Components/SecondaryHeader.vue'
     export default defineComponent({
         props: ['product', 'similarProducts'],
@@ -173,7 +170,7 @@
             Link,
             AppLayout,
             AutoComplete,
-            GrayButton,
+            MainButton,
             SecondaryHeader,
             Carousel,
             Slide,

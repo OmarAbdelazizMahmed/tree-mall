@@ -40,9 +40,9 @@
                                 <div class="flex items-center px-1 py-4 mt-2">
                                     <input type="text" class="w-full bg-white" placeholder="Enter Promo Code Here" v-model="form.coupon_code">
                                     <div class="text-center ml-4">
-                                        <GrayButton like="button" class="text-sm">
+                                        <MainButton like="button" class="text-sm">
                                             Apply
-                                        </GrayButton>
+                                        </MainButton>
                                     </div>
                                     <span class="text-md text-red-600 mt-2" v-if="$page.props.errors.message">
                                         {{ $page.props.errors.message }}
@@ -116,13 +116,13 @@
 <script>
     import { defineComponent } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3';
-    import GrayButton from '@/Components/Buttons/GrayButton.vue';
+    import MainButton from '@/Components/Buttons/MainButton.vue';
     import YellowButton from '@/Components/Buttons/YellowButton.vue';
     export default defineComponent({
         props: ['taxRate', 'subtotal', 'tax', 'total', 'newSubtotal', 'code', 'discount'],
         components: {
             Link,
-            GrayButton,
+            MainButton,
             YellowButton,
         },
         data() {

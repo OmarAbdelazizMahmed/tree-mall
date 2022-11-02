@@ -11,6 +11,10 @@
                         </Link>
                     </div>
                 </div>
+                <!--  add search auto search -->
+                <div class="flex items-center w-1/2">
+                    <AutoComplete></AutoComplete>
+                </div>
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <!-- Settings Dropdown -->
@@ -21,22 +25,32 @@
                             Dashboard
                             </Link>
                             <template v-else>
-                                <Link :href="route('register')" class="hover:text-yellow-500 transition">
-                                Register
-                                </Link>
-                                <Link :href="route('login')" class="hover:text-yellow-500 transition">
-                                Login
-                                </Link>
+
+                                <div class="relative inline-block text-left">
+                                    <div>
+                                        <button type="button" class="inline-flex justify-center w-full rounded-md px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex flex-row" id="options-menu" aria-haspopup="true" aria-expanded="true" @click="open = !open">
+                                            <icon name="user" class="mr-2 w-4 h-4"></icon>
+                                            Account
+                                            <!-- Heroicon name: solid/chevron-down -->
+                                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="origin-top right-0 absolute mt-2 w-56 rounded-md shadow-lg bg-white focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="options-menu" v-show="open">
+                                        <div class="py-1" role="none">
+                                            <Link :href="route('register')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Register</Link>
+                                            <Link :href="route('login')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Login</Link>
+                                        </div>
+                                    </div>
+                                </div>
                             </template>
-                            <Link :href="route('shop.index')" class="hover:text-yellow-500 transition">
-                            Shop
-                            </Link>
                             <form method="POST" @submit.prevent="logout" v-if="$page.props.user">
                                 <button type="submit" class="hover:text-yellow-500 transition">
                                     Log Out
                                 </button>
                             </form>
-                            <Link :href="route('cart.index')" class="hover:text-red-700 transition">
+                            <Link :href="route('cart.index')" class="hover:text-amber-700 transition">
                             <span class="bg-red-600 text-white text-xs rounded-md p-1 absolute"
                                 style="top: -10px; right: -8px;" v-if="$page.props.cartCount > 0">
                                 {{ $page . props . cartCount }}
@@ -121,6 +135,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+import AutoComplete from '@/Components/Search/AutoComplete.vue'
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import JetApplicationMark from '@/Components/ApplicationMark.vue';
 import JetDropdown from '@/Components/Dropdown.vue';
@@ -136,5 +151,8 @@ const showingNavigationDropdown = ref(false);
 const logout = () => {
     Inertia.post(route('logout'));
 };
+// def open property
+const open = ref(false);
+
 </script>
 

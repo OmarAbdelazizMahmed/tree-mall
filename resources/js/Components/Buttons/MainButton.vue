@@ -19,6 +19,6 @@
     });
 
     const classes = computed(() => {
-        return 'justify-center inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 transition';
+        return 'justify-center inline-flex items-center px-4 py-2 bg-amber-500 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-amber-300 active:bg-amber-500 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 transition';
     })
 </script>

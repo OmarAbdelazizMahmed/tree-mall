@@ -37,15 +37,6 @@ const logout = () => {
         <div class="min-h-screen bg-gray-100">
             <Nav />
 
-            <!-- Page Heading -->
-            <header  class="bg-gray-700 shadow">
-                <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
-                    <h2 class="text-2xl font-bold leading-tight text-white text-center">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </h2>
-                </div>
-            </header>
-
             <!-- Page Content -->
             <main>
                 <slot />

@@ -5,9 +5,6 @@
                 <icon name="angle-right" class="w-4 h-4 fill-current"></icon>
                 <span>Shop {{ categoryName }}</span>
             </template>
-            <template #search>
-                <AutoComplete></AutoComplete>
-            </template>
         </SecondaryHeader>
         <div class="flex">
             <div class="border-r w-1/5">

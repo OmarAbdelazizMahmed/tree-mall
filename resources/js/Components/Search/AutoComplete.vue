@@ -2,6 +2,7 @@
     <AisInstantSearch
         index-name="products"
         :search-client="searchClient"
+        class="w-full"
     >
         <AisConfigure
             :attributesToSnippet="['name', 'details', 'description', 'categories']"
@@ -13,7 +14,7 @@
                         <input
                             type="search"
                             :value="currentRefinement"
-                            placeholder="Algolia search"
+                            placeholder="Search for products"
                             class="rounded w-full pl-8"
                             autofocus
                             autocomplete="off"
@@ -47,7 +48,6 @@
                                         </div>
                                     </Link>
                                 </div>
-                                <ais-powered-by theme="dark" class="flex justify-end border-t border-blue-900 mt-4 px-2 py-2"></ais-powered-by>
                             </div>
                         </div>
                     </div>
@@ -55,15 +55,23 @@
             </AisAutocomplete>
         </AisConfigure>
     </AisInstantSearch>
+    <MainButton
+        :href="route('shop.index')"
+        like="href"
+        class="ml-2 h-10 text-sm"
+        @click="search"
+        >search</MainButton>
 </template>
 
 <script>
     import { defineComponent } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
+    import MainButton from '@/Components/Buttons/MainButton.vue'
     import algoliasearch from 'algoliasearch/lite'
     export default defineComponent({
         components: {
             Link,
+            MainButton,
         },
         data() {
             console.log('algolia', import.meta.env.VITE_ALGOLIA_APP_ID, import.meta.env.VITE_ALGOLIA_SEARCH_KEY)
