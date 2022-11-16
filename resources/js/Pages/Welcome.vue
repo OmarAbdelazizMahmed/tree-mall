@@ -42,8 +42,8 @@ const slideTo = (index) => {
                 <SideCategories :categories="categories" />
             </div>
             <div class="w-4/5 mx-auto">
-                <Carousel>
-                    <Slide v-for="(slider, index) in sliders" :key="index" :autoplay="2000" :wrap-around="true">
+                <Carousel :wrap-around="true" v-model="currentSlide" :autoplay="2000">
+                    <Slide v-for="(slider, index) in sliders" :key="index">
                         <img :src="'/storage/' + slider.image" alt="the shop store" class="w-full h-96 opacity-75 object-cover">
                     </Slide>
 
@@ -76,50 +76,15 @@ const slideTo = (index) => {
                 </div>
             </div>
         </div>
-        <!-- featured products would be a carousel -->
-        <!-- <div class="flex flex-col max-w-7xl mx-auto px-4 sm:container sm:flex-row sm:space-x-4 sm:my-4 sm:px-6 lg:px-8">
-            <div class="w-full">
-                <h1 class="text-2xl font-bold text-gray-900 bg-amber-100 p-4">Featured Products</h1>
-                    <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide" class="w-full h-96">
-                        <Slide v-for="(product, index) in featured" :key="index" :autoplay="2000" :wrap-around="true" class="w-full carousel__item bg-white shadow-md rounded-md overflow-hidden object-cover">
-                            <div class="rounded-md overflow-hidden">
-                                <div class="w-full h-64">
-                                    <Link :href="route('shop.show', product.slug)">
-                                        <img :src="'/storage/' + product.main_image" alt="product image" class="w-full h-80 object-cover carousel__item">
-                                    </Link>
-                                </div>
-                            </div>
-                        </Slide>
-                    </Carousel>
-
-                    <Carousel
-                        id="thumbnails"
-                        :items-to-show="4"
-                        :wrap-around="true"
-                        v-model="currentSlide"
-                        ref="carousel"
-                    >
-                        <Slide v-for="(product, index) in featured" :key="index">
-                            <div class="carousel__item">
-                                <img :src="'/storage/' + product.main_image" alt="product image" class="w-full h-full object-cover">
-                            </div>
-                        </Slide>
-                    </Carousel>
-
-            </div>
-        </div> -->
         <div class="flex flex-col max-w-7xl mx-auto px-4 sm:container sm:flex-row sm:space-x-4 sm:my-4 sm:px-6 lg:px-8">
             <div class="w-full">
 
             <h1 class="text-2xl font-bold text-gray-900 bg-amber-100 p-4">Featured Products</h1>
-            <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
+            <Carousel id="gallery" :items-to-show="1" :wrap-around="true" v-model="currentSlide" :autoplay="2000"  class="w-full h-96">
                 <Slide v-for="(product, index) in featured" :key="index">
                     <Link :href="route('shop.show', product.slug)" class="w-full h-96">
                         <img :src="'/storage/' + product.main_image" alt="product image" class="h-96 w-full object-fill">
                     </Link>
-                <!-- <div class="carousel__item bg-white shadow-md rounded-md overflow-hidden object-cover"> -->
-                    <!-- <img :src="'/storage/' + product.main_image" alt="product image" class="object-cover"> -->
-                <!-- </div> -->
                 </Slide>
             </Carousel>
 
