@@ -143,14 +143,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <p>Suggested based on your search</p>
                 </div>
                 <div class="flex space-x-4">
                     <Link :href="route('shop.show', item.slug)" class="flex border border-black w-1/4 h-24" v-for="(item, index) in similarProducts"  :key="index">
                         <img :src="'/storage/'+item.main_image" :alt="item.name" class="w-full object-cover">
                     </Link>
-                </div>
+                </div> -->
+            </div>
+
+        </div>
+        <!-- suggested based on search -->
+        <div class="flex flex-col max-w-7xl mx-auto px-4 py-4 sm:flex sm:space-x-4 sm:px-6 lg:px-8">
+            <!-- suggested based on search header -->
+            <h2 class="text-2xl font-bold text-gray-900 bg-amber-100 p-4 mb-4 ml-1">Suggested based on your search</h2>
+            <div class="flex space-x-4">
+                <Link :href="route('shop.show', item.slug)" class="flex border border-black w-1/4" v-for="(item, index) in similarProducts"  :key="index">
+                    <img :src="'/storage/'+item.main_image" :alt="item.name" class="w-full object-cover">
+                </Link>
             </div>
         </div>
     </AppLayout>

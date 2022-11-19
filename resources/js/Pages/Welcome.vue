@@ -24,6 +24,10 @@ defineProps({
         type: Array,
         default: () => [],
     },
+    newArrivals: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const currentSlide = ref(0);
@@ -31,6 +35,24 @@ const currentSlide = ref(0);
 const slideTo = (index) => {
     currentSlide.value = index;
 };
+
+const settings = ref({
+    itemsToShow: 1,
+    snapAlign: 'center',
+});
+
+const breakpoints = ref({
+    700: {
+    itemsToShow: 3.5,
+    snapAlign: 'center',
+    },
+    1024: {
+    itemsToShow: 5,
+    snapAlign: 'start',
+    },
+})
+
+
 
 </script>
 
@@ -103,6 +125,25 @@ const slideTo = (index) => {
             </Carousel>
             </div>
         </div>
+
+        <!-- new arrivals is a slider -->
+        <div class="flex flex-col max-w-7xl mx-auto px-4 sm:container sm:flex-row sm:space-x-4 sm:my-4 sm:px-6 lg:px-8">
+            <div class="w-full">
+                <h1 class="text-2xl font-bold text-gray-900 bg-amber-100 p-4">New Arrivals</h1>
+
+                   <Carousel :settings="settings" :breakpoints="breakpoints">
+                    <Slide v-for="(product, index) in newArrivals" :key="index">
+                        <Link :href="route('shop.show', product.slug)">
+                            <img :src="'/storage/' + product.main_image" alt="product image" >
+                        </Link>
+                    </Slide>
+                    <template #addons>
+                        <Navigation />
+                    </template>
+
+                </Carousel>
+                </div>
+            </div>
     </AppLayout>
 </template>
 
