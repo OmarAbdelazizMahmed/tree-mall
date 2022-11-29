@@ -91,7 +91,7 @@ const breakpoints = ref({
                                 <h1 class="text-lg font-bold text-gray-900">{{ product.name }}</h1>
                                 <p class="text-gray-600 text-sm">{{ product.description }}</p>
                                 <p class="text-gray-600 text-sm">{{ product.price }}</p>
-                                <MainButton class="w-full mt-4" :href="route('shop.show', product.slug)">View Product</MainButton>
+                                <MainButton class="w-full mt-4" :href="route('shop.show', product.slug)" like="href">View Product</MainButton>
                             </div>
                         </div>
                     </div>

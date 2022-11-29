@@ -72,7 +72,7 @@
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <div class="relative flex items-start">
                                         <div class="flex items center h-5">
-                                            <input id="cash" name="payment_method" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" checked>
+                                            <input id="cash" name="payment_method" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" checked @click="paymentMethod = 'cash'">
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cash" class="font-medium text-gray-700">Cash on delivery</label>
@@ -88,7 +88,7 @@
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <div class="relative flex items-start">
                                         <div class="flex items center h-5">
-                                            <input id="credit" name="payment_method" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                                            <input id="credit" name="payment_method" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" @click="paymentMethod = 'credit'">
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="credit" class="font-medium text-gray-700">Credit card</label>
@@ -102,7 +102,14 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <YellowButton :href="route('checkout.index')" like="href" class="text-sm">Secure Checkout</YellowButton>
+
+                    <YellowButton :href="route('checkout.index')" like="href" class="text-sm" v-if="paymentMethod == 'credit'">
+                        Secure Checkout
+                    </YellowButton>
+
+                    <YellowButton :href="route('checkout.store')" like="submit" class="text-sm" v-else>
+                        Place Order
+                    </YellowButton>
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -129,7 +136,8 @@
             return {
                 form: this.$inertia.form({
                     coupon_code: '',
-                })
+                }),
+                paymentMethod: 'cash',
             }
         },
         methods: {
@@ -156,6 +164,6 @@
                     }
                 })
             }
-        }
+        },
     })
 </script>
