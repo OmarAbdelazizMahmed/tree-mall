@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="flex items-center justify-center mt-4">
-                            <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                            <JetButton class="bg-amber-600 ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 <icon name="spinner" class="animate-spin h-5 w-5 fill-current" v-if="form.processing"></icon>
                                 <span v-else>Register</span>
                             </JetButton>
@@ -66,7 +66,7 @@
             </div>
             <div class="flex-1">
                 <div class=" flex flex-col shadow-md rounded">
-                    <div class="bg-gray-300 px-4 py-6">
+                    <div class="bg-amber-500 px-4 py-6">
                         <div class="flex flex-col items-center bg-white px-4 py-2 space-y-4">
                             <Link :href="route('login')" class="underline text-gray-600 hover:text-gray-900 transition">
                                 Already registered?
