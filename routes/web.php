@@ -9,6 +9,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Search\AlgoliaSearchController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\StoreAuthController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,3 +71,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 });
 
+// routes for stores dashboard
+Route::group(['prefix' => 'stores', 'as' => 'stores.'], function () {
+    Route::get('/login', [StoreAuthController::class, 'login'])->name('login');
+    Route::post('/login', [StoreAuthController::class, 'authenticate'])->name('authenticate');
+    Route::group(['middleware' => 'auth:store'], function () {
+        Route::get('/dashboard', [StoreAuthController::class, 'dashboard'])->name('dashboard');
+    });
+});
